@@ -39,10 +39,11 @@ const loop = setInterval(() => {
   }
 }, 10);
 
+// Evento de tecla para desktop
 document.addEventListener("keydown", pulo);
 
-// Adiciona evento de toque para dispositivos móveis
-document.addEventListener("touchstart", pulo);
+// Evento de toque para dispositivos móveis
+document.addEventListener("click", pulo);
 
 restartButton.addEventListener('click', () => {
     location.reload();
