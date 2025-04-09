@@ -41,6 +41,9 @@ const loop = setInterval(() => {
 
 document.addEventListener("keydown", pulo);
 
+// Adiciona evento de toque para dispositivos móveis
+document.addEventListener("touchstart", pulo);
+
 restartButton.addEventListener('click', () => {
     location.reload();
 });
