@@ -1,5 +1,6 @@
 const mario = document.querySelector(".mario");
 const tubo = document.querySelector(".Tubo");
+const restartButton = document.getElementById("restartButton");
 const audio = document.createElement('audio');
 audio.setAttribute('src', 'C:\Users\User\Desktop\PROA\Visual Studio\Projeto Mario\sound/super-mario-song-supercut-original-theme_iKzkLXQB.mp3');
 audio.setAttribute('autoplay', true);
@@ -31,9 +32,15 @@ const loop = setInterval(() => {
     mario.style.width = '75px';
     mario.style.marginLeft = '50px';
 
+    restartButton.style.display = 'block';
+
     clearInterval(loop);
 
   }
 }, 10);
 
 document.addEventListener("keydown", pulo);
+
+restartButton.addEventListener('click', () => {
+    location.reload();
+});
