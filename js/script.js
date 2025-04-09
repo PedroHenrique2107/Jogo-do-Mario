@@ -43,7 +43,10 @@ const loop = setInterval(() => {
 document.addEventListener("keydown", pulo);
 
 // Evento de toque para dispositivos móveis
-document.addEventListener("click", pulo);
+document.addEventListener("touchstart", (event) => {
+  event.preventDefault(); // Previne o comportamento padrão do toque
+  pulo();
+});
 
 restartButton.addEventListener('click', () => {
     location.reload();
