@@ -6,53 +6,85 @@
 
 .game-board {
   width: 100%;
-  height: 777px;
+  height: 100vh;
   border-bottom: 15px solid #73ff00;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-    background: linear-gradient(#87ceeb, #e4f7ff);
+  background: linear-gradient(#87ceeb, #e4f7ff);
+  touch-action: none;
+  will-change: transform;
 }
 
 .Tubo {
   position: absolute;
   bottom: 0;
   width: 80px;
-  animation: Tubo-animation 1.5s infinite linear;
+  animation: Tubo-animation 2s infinite linear;
+  will-change: transform;
+}
+
+.Tubo::before {
+  content: '↑';
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 24px;
+  text-shadow: 2px 2px 0 #000;
+  opacity: 0;
+  animation: jumpIndicator 2s infinite;
+}
+
+@keyframes jumpIndicator {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 .mario {
   width: 150px;
   position: absolute;
   bottom: 0;
+  left: 0;
+  animation: run 0.3s steps(1) infinite;
+  will-change: transform;
 }
 
 .pulo {
-  animation: pulo 500ms infinite ease-out;
+  animation: pulo 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .clouds {
   position: absolute;
-  width: 650px;
-  animation: slide-infinite 4s infinite linear;
+  width: 550px;
+  animation: slide-infinite 20s infinite linear;
+  will-change: transform;
 }
 
 @keyframes slide-infinite {
-  from{
-    right: -250px;
+  from {
+    right: -550px;
   }
- to{
-  right: 100%
- }
-
+  to {
+    right: 100%
   }
-
+}
 
 @keyframes Tubo-animation {
   from {
     right: -80px;
   }
-
   to {
     right: 100%;
   }
@@ -62,34 +94,328 @@
   0% {
     bottom: 0;
   }
-
-  40% {
-    bottom: 180px;
-  }
-
   50% {
     bottom: 180px;
   }
-
-  60% {
-    bottom: 180px;
-  }
-
   100% {
     bottom: 0;
   }
 }
 
-.restart-button {
+.game-over-container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 15px 30px;
+  background-color: rgba(0, 0, 0, 0.95);
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  border: 6px solid #ffd700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  z-index: 100;
+  min-width: 300px;
+}
+
+.game-over-container h1 {
+  font-family: 'Press Start 2P', cursive;
+  color: #ff3333;
+  font-size: 32px;
+  margin-bottom: 30px;
+  text-shadow: 3px 3px 0 #000;
+  letter-spacing: 2px;
+}
+
+.game-over-container p {
+  font-family: 'Press Start 2P', cursive;
+  color: #ffd700;
+  font-size: 20px;
+  margin: 15px 0;
+  text-shadow: 2px 2px 0 #000;
+  letter-spacing: 1px;
+}
+
+.restart-button {
+  font-family: 'Press Start 2P', cursive;
+  position: relative;
+  margin-top: 30px;
+  padding: 20px 40px;
   font-size: 20px;
   cursor: pointer;
-  border: none;
-  background-color: #4CAF50;
+  border: 4px solid #45a049;
+  background: linear-gradient(to bottom, #4CAF50, #45a049);
   color: white;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  text-shadow: 2px 2px 0 #000;
+  box-shadow: 
+    0 6px #378037,
+    0 8px 10px rgba(0,0,0,0.3);
+  outline: none;
+}
+
+.restart-button:hover {
+  transform: translateY(2px);
+  box-shadow: 
+    0 4px #378037,
+    0 6px 8px rgba(0,0,0,0.3);
+}
+
+.restart-button:active {
+  transform: translateY(6px);
+  box-shadow: none;
+  background: linear-gradient(to bottom, #45a049, #378037);
+}
+
+.timer {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 24px;
+  color: white;
+  text-shadow: 2px 2px 0 #000;
+  z-index: 10;
+}
+
+.score-container {
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.coin-counter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+  text-shadow: 2px 2px 0 #000;
+}
+
+.coin-icon {
+  width: 35px;
+  height: 35px;
+  image-rendering: pixelated;
+}
+
+.coin {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  image-rendering: pixelated;
+  animation: float 0.8s infinite alternate ease-in-out;
+  z-index: 10;
+}
+
+@keyframes float {
+  from {
+    transform: translateY(0) rotate(0deg);
+  }
+  to {
+    transform: translateY(-10px) rotate(360deg);
+  }
+}
+
+.coins {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@media (max-width: 768px) {
+  .mario {
+    width: 120px;
+  }
+  
+  .Tubo {
+    width: 60px;
+  }
+  
+  .clouds {
+    width: 400px;
+  }
+  
+  @keyframes pulo {
+    0% {
+      bottom: 0;
+    }
+    45% {
+      bottom: 140px;
+    }
+    55% {
+      bottom: 140px;
+    }
+    100% {
+      bottom: 0;
+    }
+  }
+}
+
+/* Estilo do X de morte */
+.death-x {
+  position: absolute;
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  color: #000;
+  opacity: 0;
+  z-index: 1000;
+}
+
+.death-x.show {
+  animation: showDeathX 0.5s forwards;
+}
+
+@keyframes showDeathX {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Controles Mobile */
+.mobile-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 1000;
+  display: none; /* Inicialmente oculto, será mostrado apenas em mobile */
+}
+
+.control-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  border: 3px solid #4CAF50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.control-btn:active {
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.control-btn .arrow {
+  font-size: 24px;
+  color: #4CAF50;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.control-btn.jump {
+  width: 80px;
+  height: 80px;
+}
+
+.control-btn.jump .arrow {
+  font-size: 32px;
+}
+
+/* Animação de queda do Mario */
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+.falling {
+  animation: fall 3s forwards;
+}
+
+/* Media Query para Mobile */
+@media (max-width: 768px) {
+  .mobile-controls {
+    display: flex;
+  }
+  
+  .control-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .control-btn.jump {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* Indicador de Nível */
+.speed-level {
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+  text-shadow: 2px 2px 0 #000;
+  transition: all 0.3s ease;
+}
+
+.level-text {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.level-value {
+  font-size: 20px;
+  padding: 8px 16px;
   border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.level-value.easy {
+  color: #4CAF50;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.level-value.medium {
+  color: #FFA500;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.level-value.hard {
+  color: #FF4444;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+@keyframes run {
+  0% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(0.95);
+  }
+  100% {
+    transform: scaleX(1);
+  }
 }

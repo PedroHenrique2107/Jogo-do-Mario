@@ -5,15 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <script src="./js/script.js" defer></script>
-       <title>Mario Runner</title>
+    <title>Mario Runner</title>
   </head>
 
   <body>
     <div class="game-board">
-          <img src="./img/kindpng_3017985.png" class="clouds" />
+      <div class="score-container">
+        <div class="timer"></div>
+        <div class="coin-counter">
+          <img src="./img/MoedaSuperMarioBros.png" class="coin-icon" alt="Moeda" />
+          <span class="coin-count">x 0</span>
+        </div>
+      </div>
+
+      <img src="./img/kindpng_3017985.png" class="clouds" />
       <img src="./img/Correndo.gif" class="mario" />
       <img src="./img/Tubo.png" class="Tubo" />
+      <div class="coins"></div>
+      <div class="death-x" style="display: none;">✕</div>
+      
+      <!-- Controles para Mobile -->
+      <div class="mobile-controls">
+        <button class="control-btn jump">
+          <span class="arrow">↑</span>
+        </button>
+      </div>
     </div>
 
     <button class="restart-button" id="restartButton" style="display: none;">Reiniciar</button>
