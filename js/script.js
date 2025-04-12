@@ -1,5 +1,8 @@
-const isMobile = window.innerWidth <= 768;
-const MOBILE_SPEED_MULTIPLIER = 1.5;
+// Detecção de dispositivo
+const isMobile = window.innerWidth <= 767;
+const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1024;
+const MOBILE_SPEED_MULTIPLIER = 2.0; // Aumentado de 1.5 para 2.0
+const TABLET_SPEED_MULTIPLIER = 1.8;
 const mario = document.querySelector(".mario");
 const tubo = document.querySelector(".Tubo");
 const restartButton = document.getElementById("restartButton");
@@ -92,6 +95,8 @@ function updateSpeedSmooth() {
     let finalSpeed = (1.0 + timeBonus) * playerSpeed;
     if (isMobile) {
         finalSpeed *= MOBILE_SPEED_MULTIPLIER;
+    } else if (isTablet) {
+        finalSpeed *= TABLET_SPEED_MULTIPLIER;
     }
     
     gameSpeed = finalSpeed;
