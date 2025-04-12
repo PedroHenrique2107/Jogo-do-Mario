@@ -516,4 +516,51 @@ body {
     display: flex;
     gap: 20px;
   }
+
+  .restart-button {
+    font-size: 16px;
+    padding: 15px 30px;
+    position: fixed;
+    left: 50%;
+    bottom: 20%;
+    transform: translateX(-50%);
+    z-index: 1001;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .game-over-container {
+    width: 90%;
+    max-width: 320px;
+    padding: 20px;
+  }
+
+  .game-over-container h1 {
+    font-size: 24px;
+  }
+
+  .game-over-container p {
+    font-size: 16px;
+  }
+}
+
+/* Ajustes específicos para mobile */
+@media (max-width: 767px) {
+  .restart-button {
+    font-size: 14px;
+    padding: 12px 25px;
+    bottom: 15%;
+  }
+
+  .game-over-container {
+    padding: 15px;
+  }
+
+  .game-over-container h1 {
+    font-size: 20px;
+  }
+
+  .game-over-container p {
+    font-size: 14px;
+  }
 }

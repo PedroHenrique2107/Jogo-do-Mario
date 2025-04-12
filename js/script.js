@@ -296,7 +296,16 @@ function createGameOverReport(finalTime) {
     const restartBtn = document.createElement('button');
     restartBtn.className = 'restart-button';
     restartBtn.textContent = 'Jogar Novamente';
-    restartBtn.onclick = () => location.reload();
+    
+    // Melhorar a resposta ao toque
+    restartBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        location.reload();
+    });
+    
+    restartBtn.addEventListener('click', () => {
+        location.reload();
+    });
     
     gameOverContainer.appendChild(gameOverText);
     gameOverContainer.appendChild(timeText);
