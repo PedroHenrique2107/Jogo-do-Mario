@@ -1,3 +1,5 @@
+const isMobile = window.innerWidth <= 768;
+const MOBILE_SPEED_MULTIPLIER = 1.5;
 const mario = document.querySelector(".mario");
 const tubo = document.querySelector(".Tubo");
 const restartButton = document.getElementById("restartButton");
@@ -87,9 +89,15 @@ function updateSpeedSmooth() {
     const elapsedTime = Math.floor((currentTime - startTime) / 1000);
     const timeBonus = Math.floor(elapsedTime / 30) * 0.1;
     
-    gameSpeed = (1.0 + timeBonus) * playerSpeed;
+    let finalSpeed = (1.0 + timeBonus) * playerSpeed;
+    if (isMobile) {
+        finalSpeed *= MOBILE_SPEED_MULTIPLIER;
+    }
+    
+    gameSpeed = finalSpeed;
     
     tubo.style.animationDuration = `${2 / gameSpeed}s`;
+    
     document.querySelectorAll('.coin').forEach(coin => {
         const animation = coin.getAnimations()[0];
         if (animation) {

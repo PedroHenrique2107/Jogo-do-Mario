@@ -227,31 +227,66 @@
 }
 
 @media (max-width: 768px) {
+  .game-board {
+    height: 80vh;
+    margin-top: 0;
+  }
+
   .mario {
-    width: 120px;
+    width: 80px;
+    bottom: 15px;
   }
   
   .Tubo {
-    width: 60px;
+    width: 50px;
   }
   
   .clouds {
-    width: 400px;
+    width: 300px;
+    top: 20px;
   }
   
   @keyframes pulo {
     0% {
-      bottom: 0;
+      bottom: 15px;
     }
     45% {
-      bottom: 140px;
+      bottom: 120px;
     }
     55% {
-      bottom: 140px;
+      bottom: 120px;
     }
     100% {
-      bottom: 0;
+      bottom: 15px;
     }
+  }
+
+  .mobile-controls {
+    display: flex;
+    bottom: 40px;
+  }
+
+  .score-container {
+    top: 20px;
+    left: 10px;
+  }
+
+  .timer {
+    font-size: 18px;
+  }
+
+  .coin-counter {
+    font-size: 14px;
+  }
+
+  .control-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .control-btn.jump {
+    width: 70px;
+    height: 70px;
   }
 }
 
