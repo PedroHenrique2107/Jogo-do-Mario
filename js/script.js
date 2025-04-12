@@ -24,6 +24,9 @@ let isAccelerating = false;
 let isDecelerating = false;
 let speedUpdateInterval;
 
+// Adicione após as declarações de variáveis no início do arquivo
+const isTouchDevice = isMobile || isTablet;
+
 // Configuração dos controles
 const CONTROLS = {
     SPEED_UP: ['ArrowRight', 'KeyD'],
@@ -218,19 +221,30 @@ const pulo = () => {
     }, 800);
 };
 
-// Eventos de teclado
+// Substitua o evento de toque existente por este código mais completo
+if (isTouchDevice) {
+    // Evento de toque na tela inteira
+    gameBoard.addEventListener('touchstart', (event) => {
+        event.preventDefault();
+        pulo();
+    });
+
+    // Evento de toque no botão de pulo (caso exista)
+    const jumpBtn = document.querySelector('.jump');
+    if (jumpBtn) {
+        jumpBtn.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            pulo();
+        });
+    }
+}
+
+// Mantenha o evento de teclado para desktop
 document.addEventListener("keydown", (event) => {
     if (event.code === "Space") {
-        event.preventDefault(); // Previne o scroll da página
+        event.preventDefault();
         pulo();
     }
-});
-
-// Eventos de toque para mobile
-const jumpBtn = document.querySelector('.jump');
-jumpBtn.addEventListener('touchstart', (event) => {
-    event.preventDefault();
-    pulo();
 });
 
 // Função de morte do Mario

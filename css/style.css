@@ -275,6 +275,21 @@ body {
     top: 30px;
     left: 15px;
   }
+
+  .mobile-controls {
+    display: flex;
+    bottom: 40px;
+  }
+
+  .control-btn {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .control-btn.jump {
+    width: 80px;
+    height: 80px;
+  }
 }
 
 /* Mobile (< 768px) */
@@ -483,5 +498,22 @@ body {
   }
   100% {
     transform: scaleX(1);
+  }
+}
+
+/* Estilos comuns para dispositivos touch */
+@media (max-width: 1024px) {
+  .game-board {
+    cursor: pointer;
+  }
+  
+  .mobile-controls {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    gap: 20px;
   }
 }
